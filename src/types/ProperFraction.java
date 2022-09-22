@@ -1,5 +1,7 @@
 package types;
 
+import java.util.Comparator;
+
 public class ProperFraction implements UserType {
     private int intPart;
     private int denominator;
@@ -33,6 +35,11 @@ public class ProperFraction implements UserType {
 
     @Override
     public Comparator getTypeComparator() {
-        return null;
+        return this;
+    }
+
+    @Override
+    public int compare(Object o1, Object o2) {
+        return 0;
     }
 }

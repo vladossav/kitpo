@@ -1,7 +1,13 @@
 package types;
 
+import java.util.Comparator;
+
 public class Int implements UserType {
     private int value;
+
+    public Int(int val) {
+        value = val;
+    }
 
     @Override
     public String typeName() {
@@ -20,7 +26,7 @@ public class Int implements UserType {
 
     @Override
     public Object readValue() {
-        return null;
+        return value;
     }
 
     @Override
@@ -30,6 +36,13 @@ public class Int implements UserType {
 
     @Override
     public Comparator getTypeComparator() {
-        return null;
+        return this;
+    }
+
+    @Override
+    public int compare(Object o1, Object o2) {
+        if (((Int) o1).value == ((Int) o2).value) return 0;
+        if (((Int) o1).value > ((Int) o2).value) return 1;
+        else return -1;
     }
 }

@@ -1,6 +1,8 @@
 package types;
 
-public interface UserType {
+import java.util.Comparator;
+
+public interface UserType extends Comparator {
     String typeName(); // Имя типа
     Object create(); // Создает объект ИЛИ
     Object clone(); // Клонирует текущий

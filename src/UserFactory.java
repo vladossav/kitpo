@@ -15,7 +15,8 @@ public class UserFactory {
     public UserType getBuilderByName(String name){
         switch(name) {
             case "Int":
-                return new Int();
+                int val = (int) (Math.random() * (200)) - 100;
+                return new Int(val);
             case "ProperFraction":
                 return new ProperFraction();
             default:
