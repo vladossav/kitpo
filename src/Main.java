@@ -7,7 +7,7 @@ public class Main {
         UserType[] arr = {
                 new Int(15),
                 new Int(10), new Int(26),
-                new Int(-5), new Int(12), new Int(22)
+                null, new Int(12), new Int(22), new Int(28)
         };
     /*    for (int i = 0; i < arr.length; i++) {
             arr[i] = factory.getBuilderByName("Int");
@@ -23,6 +23,8 @@ public class Main {
         BinaryTreeAsArray tree = new BinaryTreeAsArray(arr);
         tree.insertByIndex(0, new Int(-2));
         tree.insertByIndex(4, new Int(40));
+        tree.show();
+        tree.balance();
         tree.show();
 
     }

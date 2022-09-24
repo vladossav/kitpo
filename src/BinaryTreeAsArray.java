@@ -1,3 +1,4 @@
+import types.Int;
 import types.UserType;
 import java.util.Arrays;
 
@@ -24,6 +25,8 @@ public class BinaryTreeAsArray {
     }
 
     void insertByIndex(int n, UserType element) {
+        if (element == null) return;
+
         if (n > size) {
             level++;
             size += calculateSizeOfLevel(level);
@@ -40,6 +43,26 @@ public class BinaryTreeAsArray {
         else
             insertByIndex(2*n + 1, element); //влево
     }
+
+    UserType getByIndex(int n) {
+        return arr[n];
+    }
+
+    void balance() {
+        UserType[] tmp = Arrays.copyOf(arr, arr.length);
+        arr = new UserType[size];
+        balance(tmp, 0, size-1);
+
+    }
+
+    void balance(UserType[] array, int a, int b) {
+        if (a>b) return;
+        int m = (a + b) / 2;
+        insertByIndex(0, array[m]);
+        balance(array, a, m-1);
+        balance(array, m+1, b);
+    }
+
 
 
     void show() {
