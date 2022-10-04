@@ -25,6 +25,7 @@ public class Main {
         tree.insertByIndex(4, new Int(40));
         tree.show();
         tree.balance();
+        //tree.delete(0,arr[2]);
         tree.show();
 
     }
