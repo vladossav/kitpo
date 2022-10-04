@@ -77,19 +77,26 @@ public class BinaryTreeAsArray {
     }
 
     //удаление
+    void deleteByIndex(int index) {
+        if (arr[index] == null) return;
+        delete(0,arr[index]);
+    }
+
     UserType delete(int root, UserType element) {
-        if (root > size) return null;
+        if (2*root+2>=size) return null;
         if (arr[root] == null) return arr[root];
 
+
+        if (element.getTypeComparator().compare(element, arr[root]) < 0) {
+            arr[2*root + 1] = delete(2*root + 1, element);
+            return arr[root];
+        }
 
         if (element.getTypeComparator().compare(element, arr[root]) > 0) {
             arr[2 * root + 2] = delete(2 * root + 2, element);
             return arr[root];
         }
-        if (element.getTypeComparator().compare(element, arr[root]) < 0) {
-            arr[2*root + 1] = delete(2*root + 1, element);
-            return arr[root];
-        }
+
 
         if (arr[2*root+1] == null && arr[2*root + 2] == null) {
             arr[root] = null;
@@ -102,29 +109,39 @@ public class BinaryTreeAsArray {
         }
         if (arr[2*root+2] == null) {
             int temp = 2*root+1;
-            arr[root] = null;
+            arr[root] = null; //в этом месте рекурсия для проверки наличия детей элемента и рекурсивного переноса
             return arr[temp];
         }
 
-        arr[2*root+2] = deleteHelper(2*root+2,root);
+        arr[2*root+2] = deleteHelper(2*root+2,root); //если есть оба потомка
         return arr[root];
     }
 
     UserType deleteHelper(int root, int root0) {
-        if (root > size) return null;
-        if (arr[2*root+1] == null) {
+        if (2*root+2>=size) return null;
+        if (arr[2*root+1] != null) {
             arr[2*root+1] = deleteHelper(2*root+1, root0);
             return arr[root];
         }
         arr[root0] = arr[root];
         int temp = 2*root + 2;
-        arr[root] = null;
+        arr[root] = null; //дети?
         return arr[temp];
     }
 
+    boolean hasChildren(int index) {
+        return hasRightChildren(index) || hasLeftChildren(index);
+    }
 
+    boolean hasRightChildren(int index) {
+        if (2*index+2>=size) return false;
+        return arr[2 * index + 2] != null;
+    }
 
-
+    boolean hasLeftChildren(int index) {
+        if (2*index+2>=size) return false;
+        return arr[2 * index + 1] != null;
+    }
 
     void show() {
         System.out.println();
