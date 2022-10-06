@@ -1,10 +1,11 @@
 import types.UserType;
 import java.util.Arrays;
 
+
 public class BinaryTreeAsArray {
     private UserType[] arr;
-    int size; //размер массива
-    int level;
+    private int size; //размер массива
+    private int level;
 
     BinaryTreeAsArray() {
         init();
@@ -79,29 +80,53 @@ public class BinaryTreeAsArray {
     //удаление
     void deleteByIndex(int index) {
         if (arr[index] == null) return;
+        System.out.print("\n\ndeleted "+arr[index].readValue().toString() + " at "+index);
         delete(0,arr[index]);
     }
+
+    int min(int rootIndex) {
+        int ind = rootIndex;
+        while (hasLeftChildren(ind)) {
+            ind = 2*ind+1;
+        }
+        return ind;
+    }
+
+    int searchNextAfterRemoving(int ind) {
+        if (hasRightChildren(ind)) {
+            return min(2*ind+2);
+        }
+        int parInd = getParentIndex(ind);
+        while (hasLeftChildren(parInd) && (arr[ind] == arr[2*parInd+2])) {
+            arr[ind] = arr[parInd];
+            parInd = getParentIndex(parInd);
+        }
+        return parInd;
+    }
+
+
+    int getParentIndex(int index) {
+        if (index%2 == 0) return (index-2)/2;
+         else return (index-1)/2;
+    }
+
 
     UserType delete(int root, UserType element) {
         if (2*root+2>=size) return null;
         if (arr[root] == null) return arr[root];
 
 
-        if (element.getTypeComparator().compare(element, arr[root]) < 0) {
+        if (element.getTypeComparator().compare(element, arr[root]) < 0) { //если элемент < зн. узла = к левому потомку
             arr[2*root + 1] = delete(2*root + 1, element);
             return arr[root];
         }
 
-        if (element.getTypeComparator().compare(element, arr[root]) > 0) {
+        if (element.getTypeComparator().compare(element, arr[root]) > 0) {//если элемент > зн. узла = к правому потомку
             arr[2 * root + 2] = delete(2 * root + 2, element);
             return arr[root];
         }
+        // если element найден
 
-
-        if (arr[2*root+1] == null && arr[2*root + 2] == null) {
-            arr[root] = null;
-            return null;
-        }
         if (arr[2*root+1] == null) {
             int temp = 2*root+2;
             arr[root] = null;
@@ -109,7 +134,7 @@ public class BinaryTreeAsArray {
         }
         if (arr[2*root+2] == null) {
             int temp = 2*root+1;
-            arr[root] = null; //в этом месте рекурсия для проверки наличия детей элемента и рекурсивного переноса
+            arr[root] = null;
             return arr[temp];
         }
 
@@ -118,19 +143,20 @@ public class BinaryTreeAsArray {
     }
 
     UserType deleteHelper(int root, int root0) {
-        if (2*root+2>=size) return null;
-        if (arr[2*root+1] != null) {
-            arr[2*root+1] = deleteHelper(2*root+1, root0);
-            return arr[root];
+        //if (2*root+2>=size) return null;
+        if (2*root+2<size) {
+            if (arr[2*root+1] != null) {
+                arr[2*root+1] = deleteHelper(2*root+1, root0);
+                return arr[root];
+            }
         }
-        arr[root0] = arr[root];
-        int temp = 2*root + 2;
-        arr[root] = null; //дети?
-        return arr[temp];
-    }
 
-    boolean hasChildren(int index) {
-        return hasRightChildren(index) || hasLeftChildren(index);
+        arr[root0] = arr[root];
+        arr[root] = null;
+        //int temp = 2*root + 2;
+       // arr[root] = null;
+        if (2*root+2<size)  return arr[2*root + 2];
+        else return null;
     }
 
     boolean hasRightChildren(int index) {
@@ -188,5 +214,13 @@ public class BinaryTreeAsArray {
         return false;
     }
 
+    public void forEach(DoWith action) {
+        for (int i=0; i<arr.length;i++) {
+            String str;
+            if (arr[i] == null) str = "null ";
+            else str = arr[i].readValue().toString() + " ";
+            action.doWith(str);
+        }
+    }
 
 }

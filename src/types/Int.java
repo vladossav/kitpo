@@ -1,5 +1,6 @@
 package types;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Int implements UserType {
@@ -8,6 +9,7 @@ public class Int implements UserType {
     public Int(int val) {
         value = val;
     }
+    public Int() {}
 
     @Override
     public String typeName() {
@@ -31,7 +33,8 @@ public class Int implements UserType {
 
     @Override
     public Object parseValue(String ss) {
-        return null;
+        value = Integer.parseInt(ss);
+        return this;
     }
 
     @Override
