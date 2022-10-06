@@ -1,6 +1,5 @@
 package types;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Int implements UserType {
@@ -40,6 +39,11 @@ public class Int implements UserType {
     @Override
     public Comparator getTypeComparator() {
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
     }
 
     @Override

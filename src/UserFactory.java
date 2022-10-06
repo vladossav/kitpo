@@ -1,5 +1,5 @@
 import types.Int;
-import types.ProperFraction;
+import types.PropFract;
 import types.UserType;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class UserFactory {
             case "Int":
                 return new Int();
             case "ProperFraction":
-                return new ProperFraction();
+                return new PropFract();
             default:
                 return null;
         }

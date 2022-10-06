@@ -80,7 +80,6 @@ public class BinaryTreeAsArray {
     //удаление
     void deleteByIndex(int index) {
         if (arr[index] == null) return;
-        System.out.print("\n\ndeleted "+arr[index].readValue().toString() + " at "+index);
         delete(0,arr[index]);
     }
 
@@ -170,7 +169,6 @@ public class BinaryTreeAsArray {
     }
 
     void show() {
-        System.out.println();
         for (int i = 0, cnt = 0, lvl = 0; i < size; i++) {
             if (i == cnt) {
                 cnt += Math.pow(2, lvl);
@@ -182,7 +180,7 @@ public class BinaryTreeAsArray {
                 System.out.print("N ");
                 continue;
             }
-            System.out.print(arr[i].readValue() + " ");
+            System.out.print(arr[i].toString() + " ");
         }
     }
 
@@ -218,7 +216,7 @@ public class BinaryTreeAsArray {
         for (int i=0; i<arr.length;i++) {
             String str;
             if (arr[i] == null) str = "null ";
-            else str = arr[i].readValue().toString() + " ";
+            else str = arr[i].toString() + " ";
             action.doWith(str);
         }
     }
