@@ -1,4 +1,6 @@
 import types.UserType;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -27,7 +29,7 @@ public class BinaryTreeAsArray {
     void insertByIndex(int n, UserType element) {
         if (element == null) return;
 
-        if (n > size) {
+        if (n >= size) {
             level++;
             size += calculateSizeOfLevel(level);
             arr = Arrays.copyOf(arr, size);
@@ -49,64 +51,33 @@ public class BinaryTreeAsArray {
     }
 
     //балансировка
-    void balance(UserType[] array, int a, int b) {
+    void balance(ArrayList<UserType> array, int a, int b) {
         if (a>b) return;
         int m = (a + b) / 2;
-        insertByIndex(0, array[m]);
+        insertByIndex(0, array.get(m));
         balance(array, a, m-1);
         balance(array, m+1, b);
     }
 
-    void set(UserType[] array, int n, int ln) {
-        if (n>=size || arr[n]==null) return;
-        set(array,2*n + 1,ln);
-        array[ln++]=arr[n];
-        set(array,2*n + 2,ln);
-    }
 
-
-    int sizer(int n) {//подсчет потомков
+    int sizer(int n, ArrayList<UserType> arrayList) {//подсчет потомков
         if (n>=size || arr[n]==null) return 0;
-        return 1 + sizer(2*n)+sizer(2*n+1);
+        arrayList.add(arr[n]);
+        return 1 + sizer(2*n+1,arrayList)+sizer(2*n+2,arrayList);
     }
 
     void balance() {
-        int  size1 = sizer(1);
-        UserType[] tmp = Arrays.copyOf(arr, arr.length);
+        ArrayList<UserType> list = new ArrayList<>();
+        int  size1 = sizer(0,list);
+        list.sort(list.get(0).getTypeComparator());
         init();
-        balance(tmp, 0, size1);
+        balance(list, 0, size1-1);
     }
 
     //удаление
     void deleteByIndex(int index) {
         if (arr[index] == null) return;
         delete(0,arr[index]);
-    }
-
-    int min(int rootIndex) {
-        int ind = rootIndex;
-        while (hasLeftChildren(ind)) {
-            ind = 2*ind+1;
-        }
-        return ind;
-    }
-
-    int searchNextAfterRemoving(int ind) {
-        if (hasRightChildren(ind)) {
-            return min(2*ind+2);
-        }
-        int parInd = getParentIndex(ind);
-        while (hasLeftChildren(parInd) && (arr[ind] == arr[2*parInd+2])) {
-            arr[ind] = arr[parInd];
-            parInd = getParentIndex(parInd);
-        }
-        return parInd;
-    }
-
-
-    int getParentIndex(int index) {
-        if (index%2 == 0) return (index-2)/2;
-         else return (index-1)/2;
     }
 
 
@@ -152,8 +123,6 @@ public class BinaryTreeAsArray {
 
         arr[root0] = arr[root];
         arr[root] = null;
-        //int temp = 2*root + 2;
-       // arr[root] = null;
         if (2*root+2<size)  return arr[2*root + 2];
         else return null;
     }
@@ -184,6 +153,24 @@ public class BinaryTreeAsArray {
         }
     }
 
+    public String toString() {
+        String str ="";
+        for (int i = 0, cnt = 0, lvl = 0; i < size; i++) {
+            if (i == cnt) {
+                cnt += Math.pow(2, lvl);
+                lvl++;
+                str+="\n";
+            }
+
+            if (arr[i] == null) {
+                str+="N ";
+                continue;
+            }
+            str += (arr[i].toString() + " ");
+        }
+        return str;
+    }
+
     private int calculateLevelFromSize(int sz) {
         int sum = 0;
         int level = -1;
@@ -204,12 +191,6 @@ public class BinaryTreeAsArray {
 
     private int calculateSizeOfLevel(int level) {
         return (int) Math.pow(2, level);
-    }
-
-    private boolean hasParent(int pos) {
-        if (pos%2 == 0 && arr[pos/2] != null) return true;
-        if (pos%2 != 0 && arr[(pos-1)/2] != null) return true;
-        return false;
     }
 
     public void forEach(DoWith action) {

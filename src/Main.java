@@ -4,6 +4,7 @@ import types.UserType;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        new Gui();
         testInt();
         testProperFraction();
     }
@@ -18,7 +19,6 @@ public class Main {
 
         BinaryTreeAsArray tree = new BinaryTreeAsArray(arr1);
 
-        tree.forEach(System.out::print);
         System.out.print("\n\n\tinit tree");
         tree.show();
 
@@ -52,6 +52,32 @@ public class Main {
         tree.deleteByIndex(index3);
         tree.show();
 
+        UserType[] arr2 = {
+                new Int(15),
+                new Int(5), new Int(16),
+                new Int(3), new Int(12), null, new Int(20),
+                null,null,new Int(10), new Int(13), null,null, new Int(18), new Int(23),
+                null,null,null,null,new Int(6),null,null,null,null,null,null,null,null,null,null,null
+        };
+        System.out.print("\n\n\tBalancing");
+        BinaryTreeAsArray tr = new BinaryTreeAsArray(arr2);
+        tr.show();
+        tr.balance();
+        tr.show();
+
+        UserType[] arr5 = {
+                new Int(12),
+                null, new Int(16),
+                null, null, null, new Int(20),
+                null,null,null,null, null,null, null, new Int(23),
+                null,null,null,null,null,null,null,null,null,null,null,null, null,null,null,new Int(26)
+        };
+        System.out.print("\n\n\tBalancing");
+        BinaryTreeAsArray tr2 = new BinaryTreeAsArray(arr5);
+        tr2.show();
+        tr2.balance();
+        tr2.show();
+
         System.out.print("\n\n\tSerialization: saving");
         Serialization.saveToFile(tree,"test01_int.txt", UserFactory.getTypeNameList().get(0));
         System.out.print("\tSerialization: loading");
@@ -73,11 +99,8 @@ public class Main {
 
         BinaryTreeAsArray tree = new BinaryTreeAsArray(arr1);
 
-        tree.forEach(System.out::print);
         System.out.print("\n\n\tinit tree");
         tree.show();
-
-
 
         int[] value2 = {-2,2,3};
         System.out.print("\n\n\tinsert "+ value2[0]+"'"+value2[1]+"/"+value2[2]);
@@ -109,6 +132,32 @@ public class Main {
         tree.deleteByIndex(index3);
         tree.show();
 
+        UserType[] arr2 = {
+                new PropFract(15,1,2),
+                new PropFract(5,5,6), new PropFract(16,12,13),
+                new PropFract(3,5,16), new PropFract(12,23,26), null, new PropFract(20,1,23),
+                null,null,new PropFract(10,3,31), new PropFract(13,10,32), null,null, new PropFract(18,2,4), new PropFract(23,12,13),
+                null,null,null,null,new PropFract(6,1,5),null,null,null,null,null,null,null,null,null,null,null
+        };
+        System.out.print("\n\n\tBalancing");
+        BinaryTreeAsArray tr = new BinaryTreeAsArray(arr2);
+        tr.show();
+        tr.balance();
+        tr.show();
+
+        UserType[] arr5 = {
+                new PropFract(12,2,3),
+                null, new PropFract(16,4,6),
+                null, null, null, new PropFract(20,1,3),
+                null,null,null,null, null,null, null, new PropFract(23,5,12),
+                null,null,null,null,null,null,null,null,null,null,null,null, null,null,null,new PropFract(26,1,3)
+        };
+        System.out.print("\n\n\tBalancing");
+        BinaryTreeAsArray tr2 = new BinaryTreeAsArray(arr5);
+        tr2.show();
+        tr2.balance();
+        tr2.show();
+
         System.out.print("\n\n\tSerialization: saving");
         Serialization.saveToFile(tree,"test01_part.txt", UserFactory.getTypeNameList().get(1));
         System.out.print("\tSerialization: loading");
@@ -125,10 +174,7 @@ public class Main {
             new Int(5), new Int(16),
             new Int(3), new Int(12), null, new Int(20),
             null,null,new Int(10), new Int(13), null,null, new Int(18), new Int(23),
-            null,null,null,null,new Int(6),null,null,null,null,null,null,null,
-            null,null,null,null,null,null,null,null,null,new Int(7),
-            null,null,null,null,null,null,null,null,null,null,
-            null,null,null,null,null,null,null,null,null,null,null,null
+            null,null,null,null,new Int(6),null,null,null,null,null,null,null,null,null,null,null
     };
 
     UserType[] arr3 = {
