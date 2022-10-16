@@ -59,6 +59,7 @@ public class BinaryTreeAsArray {
         balance(array, m+1, b);
     }
 
+    int getSize() {return size;}
 
     int sizer(int n, ArrayList<UserType> arrayList) {//подсчет потомков
         if (n>=size || arr[n]==null) return 0;
@@ -79,7 +80,6 @@ public class BinaryTreeAsArray {
         if (arr[index] == null) return;
         delete(0,arr[index]);
     }
-
 
     UserType delete(int root, UserType element) {
         if (2*root+2>=size) return null;
@@ -113,7 +113,6 @@ public class BinaryTreeAsArray {
     }
 
     UserType deleteHelper(int root, int root0) {
-        //if (2*root+2>=size) return null;
         if (2*root+2<size) {
             if (arr[2*root+1] != null) {
                 arr[2*root+1] = deleteHelper(2*root+1, root0);
@@ -125,16 +124,6 @@ public class BinaryTreeAsArray {
         arr[root] = null;
         if (2*root+2<size)  return arr[2*root + 2];
         else return null;
-    }
-
-    boolean hasRightChildren(int index) {
-        if (2*index+2>=size) return false;
-        return arr[2 * index + 2] != null;
-    }
-
-    boolean hasLeftChildren(int index) {
-        if (2*index+2>=size) return false;
-        return arr[2 * index + 1] != null;
     }
 
     void show() {

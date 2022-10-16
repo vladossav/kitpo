@@ -10,79 +10,41 @@ public class Main {
     }
 
     static void testInt() throws Exception {
-        System.out.println("\tTEST INT");
-        UserType[] arr1 = {
-                new Int(15),
-                new Int(10), new Int(26),
-                null, new Int(12), new Int(22), new Int(28)
-        };
+        System.out.print("\tTEST INT");
 
-        BinaryTreeAsArray tree = new BinaryTreeAsArray(arr1);
-
-        System.out.print("\n\n\tinit tree");
+        BinaryTreeAsArray tree = new BinaryTreeAsArray();
+        System.out.print("\n\tinit empty tree");
         tree.show();
 
-        int value1 = 20;
-        System.out.print("\n\n\tinsert "+ value1);
-        tree.insertByIndex(0,new Int(value1));
+        int max =(int) (Math.random() * 15) + 4;
+        for (int i = 0; i < max; i++) {
+            int value = (int) (Math.random() * 100) -50;
+            tree.insertByIndex(0, new Int(value));
+        }
+
+        System.out.print("\n\n\tempty tree random filling");
         tree.show();
 
-        int value2 = -23;
-        System.out.print("\n\n\tinsert "+ value2);
-        tree.insertByIndex(0,new Int(value2));
+        System.out.print("\n\n\tBalancing");
+        tree.balance();
         tree.show();
 
-        int value3 = 18;
-        System.out.print("\n\n\tinsert "+ value3);
-        tree.insertByIndex(0,new Int(value3));
+        int value = (int) (Math.random() * 100) - 50;
+        System.out.print("\n\n\tinsert "+ value);
+        tree.insertByIndex(0,new Int(value));
         tree.show();
 
-        int index1 = 4;
+        int index1 = (int) (Math.random() * tree.getSize()-1);
         System.out.print("\n\n\tdeleteByIndex "+index1);
         tree.deleteByIndex(index1);
         tree.show();
-
-        int index2 = 0;
-        System.out.print("\n\n\tdeleteByIndex "+index2);
-        tree.deleteByIndex(index2);
-        tree.show();
-
-        int index3 = 2;
-        System.out.print("\n\n\tdeleteByIndex "+index3);
-        tree.deleteByIndex(index3);
-        tree.show();
-
-        UserType[] arr2 = {
-                new Int(15),
-                new Int(5), new Int(16),
-                new Int(3), new Int(12), null, new Int(20),
-                null,null,new Int(10), new Int(13), null,null, new Int(18), new Int(23),
-                null,null,null,null,new Int(6),null,null,null,null,null,null,null,null,null,null,null
-        };
-        System.out.print("\n\n\tBalancing");
-        BinaryTreeAsArray tr = new BinaryTreeAsArray(arr2);
-        tr.show();
-        tr.balance();
-        tr.show();
-
-        UserType[] arr5 = {
-                new Int(12),
-                null, new Int(16),
-                null, null, null, new Int(20),
-                null,null,null,null, null,null, null, new Int(23),
-                null,null,null,null,null,null,null,null,null,null,null,null, null,null,null,new Int(26)
-        };
-        System.out.print("\n\n\tBalancing");
-        BinaryTreeAsArray tr2 = new BinaryTreeAsArray(arr5);
-        tr2.show();
-        tr2.balance();
-        tr2.show();
 
         System.out.print("\n\n\tSerialization: saving");
         Serialization.saveToFile(tree,"test01_int.txt", UserFactory.getTypeNameList().get(0));
         System.out.print("\tSerialization: loading");
         BinaryTreeAsArray newTree = Serialization.loadFile("test01_int.txt");
 
+        System.out.print("\n\tcheck foreach tree after serialization\n");
         newTree.forEach(System.out::print);
 
         System.out.println("\n\tEND OF TEST INT");
@@ -91,80 +53,45 @@ public class Main {
     static void testProperFraction() throws Exception {
         System.out.println("------------------------");
         System.out.println("\tTEST PROPER FRACTION");
-        UserType[] arr1 = {
-                new PropFract(15,10,14),
-                new PropFract(10,5,7), new PropFract(26,12,23),
-                null, new PropFract(12,4,32), new PropFract(22,1,2), new PropFract(35,1,23)
-        };
 
-        BinaryTreeAsArray tree = new BinaryTreeAsArray(arr1);
-
-        System.out.print("\n\n\tinit tree");
+        BinaryTreeAsArray tree = new BinaryTreeAsArray();
+        System.out.print("\n\tinit empty tree");
         tree.show();
 
-        int[] value2 = {-2,2,3};
-        System.out.print("\n\n\tinsert "+ value2[0]+"'"+value2[1]+"/"+value2[2]);
-        tree.insertByIndex(0,new PropFract(value2[0],value2[1],value2[2]));
+        int max =(int) (Math.random() * 12) + 4;
+        for (int i = 0; i < max; i++) {
+            int intPart = (int) (Math.random() * 100) - 50;
+            int num = (int) (Math.random() * 100);
+            int denom = (int) (Math.random() * 500) + num;
+            tree.insertByIndex(0, new PropFract(intPart,num,denom));
+        }
+
+        System.out.print("\n\tempty tree random filling");
         tree.show();
 
-        int[] value1 = {0,3,4};
-        System.out.print("\n\n\tinsert "+ value1[0]+"'"+value1[1]+"/"+value1[2]);
-        tree.insertByIndex(0,new PropFract(value1[0],value1[1],value1[2]));
+        System.out.print("\n\n\tBalancing");
+        tree.balance();
         tree.show();
 
-        int[] value3 = {33,1,3};
-        System.out.print("\n\n\tinsert "+ value3[0]+"'"+value3[1]+"/"+value3[2]);
-        tree.insertByIndex(0,new PropFract(value3[0],value3[1],value3[2]));
+        int intPart = (int) (Math.random() * 100) - 50;
+        int num = (int) (Math.random() * 100);
+        int denom = (int) (Math.random() * 500) + num;
+        System.out.print("\n\n\tinsert "+ intPart+"'"+num+"/"+denom);
+        tree.insertByIndex(0, new PropFract(intPart,num,denom));
         tree.show();
 
-        int index1 = 4;
+        int index1 = (int) (Math.random() * tree.getSize()-1);
         System.out.print("\n\n\tdeleteByIndex "+index1);
         tree.deleteByIndex(index1);
         tree.show();
-
-        int index2 = 0;
-        System.out.print("\n\n\tdeleteByIndex "+index2);
-        tree.deleteByIndex(index2);
-        tree.show();
-
-        int index3 = 2;
-        System.out.print("\n\n\tdeleteByIndex "+index3);
-        tree.deleteByIndex(index3);
-        tree.show();
-
-        UserType[] arr2 = {
-                new PropFract(15,1,2),
-                new PropFract(5,5,6), new PropFract(16,12,13),
-                new PropFract(3,5,16), new PropFract(12,23,26), null, new PropFract(20,1,23),
-                null,null,new PropFract(10,3,31), new PropFract(13,10,32), null,null, new PropFract(18,2,4), new PropFract(23,12,13),
-                null,null,null,null,new PropFract(6,1,5),null,null,null,null,null,null,null,null,null,null,null
-        };
-        System.out.print("\n\n\tBalancing");
-        BinaryTreeAsArray tr = new BinaryTreeAsArray(arr2);
-        tr.show();
-        tr.balance();
-        tr.show();
-
-        UserType[] arr5 = {
-                new PropFract(12,2,3),
-                null, new PropFract(16,4,6),
-                null, null, null, new PropFract(20,1,3),
-                null,null,null,null, null,null, null, new PropFract(23,5,12),
-                null,null,null,null,null,null,null,null,null,null,null,null, null,null,null,new PropFract(26,1,3)
-        };
-        System.out.print("\n\n\tBalancing");
-        BinaryTreeAsArray tr2 = new BinaryTreeAsArray(arr5);
-        tr2.show();
-        tr2.balance();
-        tr2.show();
 
         System.out.print("\n\n\tSerialization: saving");
         Serialization.saveToFile(tree,"test01_part.txt", UserFactory.getTypeNameList().get(1));
         System.out.print("\tSerialization: loading");
         BinaryTreeAsArray newTree = Serialization.loadFile("test01_part.txt");
 
+        System.out.print("\n\tcheck foreach tree after serialization\n");
         newTree.forEach(System.out::print);
-
         System.out.println("\n\tEND OF TEST PROPER FRACTION");
     }
 
