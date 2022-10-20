@@ -25,6 +25,31 @@ public class BinaryTreeAsArray {
         arr = Arrays.copyOf(array, size);
     }
 
+    int sizerLSS(int n) {
+        if (n>=size || arr[n]==null) return 0;
+        return 1 + sizerLSS(2*n+1)+sizerLSS(2*n+2);
+    }
+
+    UserType getByIndex(int ind) {
+        if (ind < 0 || sizerLSS(0) <= ind) return null;
+        int n = 0;
+        int lss = sizerLSS(2*n+1);
+        while (lss != 0 || ind != 0){
+            if (ind == lss) {
+                break;
+            }
+            if(ind < lss) {
+                n = 2*n+1;
+                lss = sizerLSS(2*n+1);
+            }
+            if(ind > lss) {
+                n = 2 * n + 2;
+                ind = ind - lss - 1;
+                lss = sizerLSS(2 * n + 1);
+            }
+        }
+        return arr[n];
+    }
 
     void insertByIndex(int n, UserType element) {
         if (element == null) return;
@@ -46,9 +71,7 @@ public class BinaryTreeAsArray {
             insertByIndex(2*n + 1, element); //влево
     }
 
-    UserType getByIndex(int n) {
-        return arr[n];
-    }
+    int getSize() {return size;}
 
     //балансировка
     void balance(ArrayList<UserType> array, int a, int b) {
@@ -58,8 +81,6 @@ public class BinaryTreeAsArray {
         balance(array, a, m-1);
         balance(array, m+1, b);
     }
-
-    int getSize() {return size;}
 
     int sizer(int n, ArrayList<UserType> arrayList) {//подсчет потомков
         if (n>=size || arr[n]==null) return 0;
