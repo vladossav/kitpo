@@ -30,25 +30,13 @@ public class BinaryTreeAsArray {
         return 1 + sizerLSS(2*n+1)+sizerLSS(2*n+2);
     }
 
-    UserType getByIndex(int ind) {
-        if (ind < 0 || sizerLSS(0) <= ind) return null;
-        int n = 0;
-        int lss = sizerLSS(2*n+1);
-        while (lss != 0 || ind != 0){
-            if (ind == lss) {
-                break;
-            }
-            if(ind < lss) {
-                n = 2*n+1;
-                lss = sizerLSS(2*n+1);
-            }
-            if(ind > lss) {
-                n = 2 * n + 2;
-                ind = ind - lss - 1;
-                lss = sizerLSS(2 * n + 1);
-            }
-        }
-        return arr[n];
+    UserType getByIndex(int m, int n) {
+        if (m < 0 || m >= size || m >= sizerLSS(n)) return null;
+        int ll = sizerLSS(2 * n + 1);
+        if (m < ll) return getByIndex(m, 2 * n + 1);
+        m -= ll;
+        if (m-- == 0) return arr[n];
+        return getByIndex(m, 2 * n + 2);
     }
 
     void insertByIndex(int n, UserType element) {

@@ -1,6 +1,7 @@
 import types.Int;
 import types.PropFract;
 import types.UserType;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -25,7 +26,17 @@ public class Main {
         System.out.print("\n\n\tempty tree random filling");
         tree.show();
 
-        System.out.print("\n\n\tBalancing");
+        ArrayList<UserType> list = new ArrayList<>();
+        int index = (int) (Math.random() * tree.sizer(0,list)-1);
+        list.sort(list.get(0).getTypeComparator());
+        System.out.println("\n\n\tget by index " + index);
+        System.out.print("ordered: ");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.print(list.get(i).toString() + " ");
+        }
+        System.out.print("\nresult: " + tree.getByIndex(index,0));
+
+        System.out.print("\n\tBalancing");
         tree.balance();
         tree.show();
 
@@ -69,7 +80,17 @@ public class Main {
         System.out.print("\n\tempty tree random filling");
         tree.show();
 
-        System.out.print("\n\n\tBalancing");
+        ArrayList<UserType> list = new ArrayList<>();
+        int index = (int) (Math.random() * tree.sizer(0,list)-1);
+        list.sort(list.get(0).getTypeComparator());
+        System.out.println("\n\n\tget by index " + index);
+        System.out.print("ordered: ");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.print(list.get(i).toString() + " ");
+        }
+        System.out.println("\nresult: " + tree.getByIndex(index,0));
+
+        System.out.print("\n\tBalancing");
         tree.balance();
         tree.show();
 
