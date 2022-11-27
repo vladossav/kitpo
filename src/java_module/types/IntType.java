@@ -1,14 +1,14 @@
-package types;
+package java_module.types;
 
 import java.util.Comparator;
 
-public class Int implements UserType {
+public class IntType implements UserType {
     private int value;
 
-    public Int(int val) {
+    public IntType(int val) {
         value = val;
     }
-    public Int() {}
+    public IntType() {}
 
     @Override
     public String typeName() {
@@ -47,9 +47,9 @@ public class Int implements UserType {
     }
 
     @Override
-    public int compare(Object o1, Object o2) {
-        if (((Int) o1).value == ((Int) o2).value) return 0;
-        if (((Int) o1).value > ((Int) o2).value) return 1;
+    public int compare(UserType o1, UserType o2) {
+        if (((IntType) o1).value == ((IntType) o2).value) return 0;
+        if (((IntType) o1).value > ((IntType) o2).value) return 1;
         else return -1;
     }
 }

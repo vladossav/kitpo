@@ -1,4 +1,6 @@
-import types.UserType;
+package java_module;
+
+import java_module.types.UserType;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -7,11 +9,13 @@ import java.io.PrintWriter;
 import java.util.Objects;
 
 public class Serialization {
-    public  static void saveToFile(BinaryTreeAsArray tree, String filename, String type) throws FileNotFoundException {
+    public  static void saveToFile(BinaryTree tree, String filename, String type) throws FileNotFoundException {
         try (PrintWriter writer = new PrintWriter(filename)) {
             writer.println(type);
             tree.forEach(writer::print);
+            writer.close();
         }
+
         System.out.println("\nTree was saved!");
     }
 

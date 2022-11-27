@@ -1,10 +1,12 @@
-import types.UserType;
+package java_module;
+
+import java_module.types.UserType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class BinaryTreeAsArray {
+public class BinaryTreeAsArray implements BinaryTree {
     private UserType[] arr;
     private int size; //размер массива
     private int level;
@@ -13,7 +15,7 @@ public class BinaryTreeAsArray {
         init();
     }
 
-    void init() {
+    public void init() {
         size = 1;
         level = 0;
         arr = new UserType[size];
@@ -30,7 +32,7 @@ public class BinaryTreeAsArray {
         return 1 + sizerLSS(2*n+1)+sizerLSS(2*n+2);
     }
 
-    UserType getByIndex(int m, int n) {
+    public UserType getByIndex(int m, int n) {
         if (m < 0 || m >= size || m >= sizerLSS(n)) return null;
         int ll = sizerLSS(2 * n + 1);
         if (m < ll) return getByIndex(m, 2 * n + 1);
@@ -39,7 +41,7 @@ public class BinaryTreeAsArray {
         return getByIndex(m, 2 * n + 2);
     }
 
-    void insertByIndex(int n, UserType element) {
+    public void insertByIndex(int n, UserType element) {
         if (element == null) return;
 
         if (n >= size) {
@@ -76,7 +78,7 @@ public class BinaryTreeAsArray {
         return 1 + sizer(2*n+1,arrayList)+sizer(2*n+2,arrayList);
     }
 
-    void balance() {
+    public void balance() {
         ArrayList<UserType> list = new ArrayList<>();
         int  size1 = sizer(0,list);
         list.sort(list.get(0).getTypeComparator());
@@ -85,7 +87,7 @@ public class BinaryTreeAsArray {
     }
 
     //удаление
-    void deleteByIndex(int index) {
+    public void deleteByIndex(int index) {
         if (arr[index] == null) return;
         delete(0,arr[index]);
     }
@@ -135,7 +137,7 @@ public class BinaryTreeAsArray {
         else return null;
     }
 
-    void show() {
+    public void show() {
         for (int i = 0, cnt = 0, lvl = 0; i < size; i++) {
             if (i == cnt) {
                 cnt += Math.pow(2, lvl);

@@ -1,14 +1,17 @@
-import types.UserType;
+package java_module;
+
+import java_module.types.UserType;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
 
 public class Gui extends JFrame {
-    BinaryTreeAsArray tree = new BinaryTreeAsArray();
+    BinaryTree tree;
 
-    Gui() {
+    public Gui(BinaryTree tr) {
         super("BinaryTreeAsArray");
+        tree = tr;
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         //окно вывода
         JTextArea out = new JTextArea();

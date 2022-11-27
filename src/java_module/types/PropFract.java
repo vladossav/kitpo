@@ -1,4 +1,4 @@
-package types;
+package java_module.types;
 
 import java.util.Comparator;
 
@@ -62,7 +62,7 @@ public class PropFract implements UserType {
     }
 
     @Override
-    public int compare(Object o1, Object o2) {
+    public int compare(UserType o1, UserType o2) {
         if (((PropFract) o1).intPart == ((PropFract) o2).intPart) {
             if (((PropFract) o1).numerator * ((PropFract) o2).denominator ==
                     ((PropFract) o2).numerator * ((PropFract) o1).denominator) return 0;
