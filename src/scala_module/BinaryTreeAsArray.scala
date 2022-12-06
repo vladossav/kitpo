@@ -10,7 +10,6 @@ class BinaryTreeAsArray extends BinaryTree {
   private var size = 0 //размер массива
   private var level = 0
 
-
   def init(): Unit = {
     size = 1
     level = 0
@@ -51,7 +50,8 @@ class BinaryTreeAsArray extends BinaryTree {
       return
     }
 
-    if (element.getTypeComparator.compare(element, arr(n)) > 0) insertByIndex(2 * n + 2, element) //право
+    if (element.getTypeComparator.compare(element, arr(n)) > 0)
+      insertByIndex(2 * n + 2, element) //право
     else insertByIndex(2 * n + 1, element) //влево
   }
 
@@ -66,7 +66,7 @@ class BinaryTreeAsArray extends BinaryTree {
     balance(array, m + 1, b)
   }
 
-  private[scala] def sizer(n: Int, arrayList: util.ArrayList[UserType]): Int = { //подсчет потомков
+  def sizer(n: Int, arrayList: util.ArrayList[UserType]): Int = { //подсчет потомков
     if (n >= size || arr(n) == null) return 0
     arrayList.add(arr(n))
     1 + sizer(2 * n + 1, arrayList) + sizer(2 * n + 2, arrayList)
