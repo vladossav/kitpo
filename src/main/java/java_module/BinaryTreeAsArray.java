@@ -78,6 +78,24 @@ public class BinaryTreeAsArray implements BinaryTree {
         return 1 + sizer(2*n+1,arrayList)+sizer(2*n+2,arrayList);
     }
 
+    int getSumPathLength(int n, int i) {
+        if (n>=size || arr[n] == null) {
+            return 0;
+        }
+        return i + getSumPathLength(2*n+1, i+1) + getSumPathLength(2*n+2, i+1);
+    }
+
+    int heigh(int n)
+    {
+        if (n>= size || arr[n] == null) {
+            return 0;
+        }
+        else if (heigh(2*n+1) > heigh(2*n+2))
+            return heigh(2*n+1) + 1;
+        else
+            return heigh(2*n+2) + 1;
+    }
+
     public void balance() {
         ArrayList<UserType> list = new ArrayList<>();
         int  size1 = sizer(0,list);
