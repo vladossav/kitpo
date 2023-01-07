@@ -145,40 +145,20 @@ class BinaryTreeArrayTest {
         assertEquals(expected, actual);
     }
 
-
-
     @org.junit.jupiter.api.Test
     public void testBalanced() {
         System.out.println("BALANCED TEST");
 
-        for (int countOfElem = 10000; countOfElem <= 10000; countOfElem += 10000) {
+        for (int countOfElem = 100000; countOfElem <= 1000000; countOfElem += 50000) {
             for (int i = 0; i < countOfElem; i++){
-                actualBts.insertByIndex(0, new IntType((int) (Math.random() * 1000) -500));
+                actualBts.insertByIndex(0, new IntType((int) (Math.random() * 2000000000) -1000000000));
             }
-
-            long startTime = System.nanoTime();
             actualBts.balance();
-            long endTime = System.nanoTime();
-            double timeElapsed = (endTime - startTime) * 1.0 / 1_000_000;
-            System.out.println("N = " + countOfElem + ". Time = " + timeElapsed + " ms.");
-
-        }
-        System.out.println("----------------------");
-    }
-
-    @org.junit.jupiter.api.Test
-    public void testInsert() {
-        System.out.println("INSERT TEST");
-
-        for (int countOfElem = 1000; countOfElem <= 5000; countOfElem += 100) {
             long startTime = System.nanoTime();
-            for (int i = 0; i < countOfElem; i++){
-                actualBts.insertByIndex(0, new IntType((int) (Math.random() * 1000) -500));
-            }
+            actualBts.deleteByIndex(actualBts.sizerLSS(0) - 1);
             long endTime = System.nanoTime();
             double timeElapsed = (endTime - startTime) * 1.0 / 1_000_000;
             System.out.println("N = " + countOfElem + ". Time = " + timeElapsed + " ms.");
-            actualBts.init();
         }
         System.out.println("----------------------");
     }
